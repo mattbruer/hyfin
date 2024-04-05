@@ -1,5 +1,4 @@
 <script>
-	// mongodb+srv://matt:<password>@cluster0.gsfzp3g.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 	import Product from '../components/Product.svelte';
 	import { allInvoices } from '../stores';
 	import { page } from '$app/stores';
