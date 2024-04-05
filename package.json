@@ -27,6 +27,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"dotenv": "^16.4.5",
 		"flowbite-svelte-icons": "^1.5.0",
 		"mongodb": "^6.5.0"
 	}
