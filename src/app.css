@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+button {
+	background-color: rgb(235, 118, 19);
+	border-radius: 5px;
+	padding: 10px;
+	box-shadow: 0px 1px 5px black;
+	color: white;
+}
+button:hover {
+	filter: brightness(0.9);
+}
+
+input {
+	border-bottom: 1px solid grey;
+	height: 40px;
+}
+
+input:hover,
+textarea:hover {
+	background-color: azure;
+}
