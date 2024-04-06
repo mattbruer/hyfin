@@ -27,22 +27,55 @@
 
 	async function handleSave() {
 		loading = true;
-		let response = await fetch('/invoice/1', {
-			method: 'POST',
-			body: JSON.stringify({ customer, phone, email, paid: !!paid, lines, invoiceNumber }),
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		});
 
-		response = await response.json();
-		loading = false;
-		alert(`Response from server:${JSON.stringify(response)}`);
-		goto('/');
 		if ($allInvoices.length < invoiceNumber) {
-			$allInvoices = [...$allInvoices, { customer, phone, email, lines, invoiceNumber, paid }];
+			try {
+				let response = await fetch(`/invoice/${invoiceNumber}`, {
+					method: 'POST',
+					body: JSON.stringify({ customer, phone, email, paid: !!paid, lines, invoiceNumber }),
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				});
+				response = await response.json();
+				loading = false;
+				$allInvoices = [
+					...$allInvoices,
+					{
+						customer: response.customer,
+						phone: response.phone,
+						email: response.email,
+						lines: response.lines,
+						invoiceNumber: response.invoiceNumber,
+						paid: response.paid
+					}
+				];
+				goto('/');
+			} catch (error) {
+				console.log('error', error);
+				alert('Something went wrong');
+			}
 		} else {
-			$allInvoices[invoiceNumber - 1] = { customer, phone, email, lines, invoiceNumber, paid };
+			try {
+				let response = await fetch(`/invoice/${invoiceNumber}`, {
+					method: 'PUT',
+					body: JSON.stringify({ customer, phone, email, paid: !!paid, lines, invoiceNumber }),
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				});
+				response = await response.json();
+				$allInvoices[invoiceNumber - 1] = {
+					customer: response.customer,
+					phone: response.phone,
+					email: response.email,
+					lines: response.lines,
+					invoiceNumber: response.invoiceNumber,
+					paid: response.paid
+				};
+				loading = false;
+				goto('/');
+			} catch (error) {}
 		}
 	}
 

@@ -10,3 +10,14 @@ export async function POST({ request }) {
 
 	return json(insertedInvoice);
 }
+
+export async function PUT({ request }) {
+	const data = await request.json();
+
+	const updated = await invoices.findOneAndReplace(
+		{ invoiceNumber: data.invoiceNumber },
+		{ ...data }
+	);
+
+	return json(updated);
+}

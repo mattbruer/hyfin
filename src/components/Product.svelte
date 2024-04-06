@@ -1,8 +1,6 @@
 <script>
 	import { blur, fly } from 'svelte/transition';
 
-	import { allInvoices } from '../stores';
-
 	export let i;
 	export let line;
 	export let handleRemove;

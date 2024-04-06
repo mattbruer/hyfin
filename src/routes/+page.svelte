@@ -13,7 +13,7 @@
 
 		{#each [...$allInvoices].reverse() as invoice}
 			<a
-				class="bg-gray-100 w-fill border rounded-xl shadow-md m-2 p-2"
+				class="invoices bg-gray-100 w-fill border rounded-xl shadow-md m-2 p-2"
 				href={`/invoice/${invoice.invoiceNumber}`}
 			>
 				<div
