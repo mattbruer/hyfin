@@ -5,6 +5,7 @@
 	import { blur, fly } from 'svelte/transition';
 	import { goto } from '$app/navigation';
 	let invoiceNumber = $page.params.invoiceNumber || $allInvoices.length + 1;
+	let data;
 
 	let customer,
 		phone,
@@ -12,6 +13,9 @@
 		paid,
 		lines = [],
 		loading = false;
+
+	//this makes sure data is avail on page refreshes
+	$allInvoices = JSON.parse($page.data.props.invoices);
 
 	if ($page.params.invoiceNumber) {
 		customer = $allInvoices[invoiceNumber - 1].customer;
@@ -73,7 +77,9 @@
 					invoiceNumber: response.invoiceNumber,
 					paid: response.paid
 				};
+
 				loading = false;
+
 				goto('/');
 			} catch (error) {}
 		}

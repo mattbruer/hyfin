@@ -7,8 +7,6 @@ export async function POST({ request }) {
 	const dbres = await invoices.insertOne(data);
 	const insertedInvoice = await invoices.findOne({ _id: dbres.insertedId });
 
-	await new Promise((resolve) => setTimeout(resolve, 100));
-
 	return json(insertedInvoice);
 }
 
