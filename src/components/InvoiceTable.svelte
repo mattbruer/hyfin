@@ -81,7 +81,6 @@
 					paid: response.paid
 				};
 
-				loading = false;
 				window.location.href = '/';
 			} catch (error) {}
 		}
