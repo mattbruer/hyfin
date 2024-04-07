@@ -2,10 +2,10 @@
 	import Product from '../components/Product.svelte';
 	import { allInvoices } from '../stores';
 	import { page } from '$app/stores';
+
 	import { blur, fly } from 'svelte/transition';
 	import { goto } from '$app/navigation';
-	let invoiceNumber = $page.params.invoiceNumber || $allInvoices.length + 1;
-	let data;
+	let invoiceNumber = +$page.params.invoiceNumber || $allInvoices.length + 1;
 
 	let customer,
 		phone,
@@ -79,8 +79,7 @@
 				};
 
 				loading = false;
-
-				goto('/');
+				window.location.href = '/';
 			} catch (error) {}
 		}
 	}
@@ -141,6 +140,7 @@
 			</div>
 		</div>
 		<div class="btn-group mb-10">
+			<a href="/"><button>All invoices</button></a>
 			<button
 				on:click={() => {
 					paid = !paid;

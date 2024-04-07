@@ -1,22 +1,10 @@
 <script>
 	import { allInvoices } from '../stores';
-	import { navigating } from '$app/stores';
 
 	export let data;
-	let updated;
 
-	// if ($navigating && $allInvoices.length) {
-	// 	updated = data.props.invoices !== JSON.stringify($allInvoices);
-	// }
-	// console.log('updated', updated);
-
-	// if (!updated) {
-	// }
-
-	$allInvoices = JSON.parse(data.props.invoices);
-
-	if ($navigating) {
-		location.reload();
+	if ($allInvoices.length === 0) {
+		$allInvoices = JSON.parse(data.props.invoices);
 	}
 </script>
 
