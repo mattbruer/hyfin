@@ -1,7 +1,7 @@
 <script>
 	import Product from '../components/Product.svelte';
 	import { allInvoices } from '../stores';
-	import { page } from '$app/stores';
+	import { page, navigating } from '$app/stores';
 
 	import { blur, fly } from 'svelte/transition';
 	import { goto } from '$app/navigation';
@@ -15,9 +15,12 @@
 		loading = false;
 
 	//this makes sure data is avail on page refreshes
-	$allInvoices = JSON.parse($page.data.props.invoices);
 
-	if ($page.params.invoiceNumber) {
+	if ($allInvoices.length === 0) {
+		$allInvoices = JSON.parse($page.data.props.invoices);
+	}
+
+	if ($page.params.invoiceNumber && $allInvoices[invoiceNumber - 1]) {
 		customer = $allInvoices[invoiceNumber - 1].customer;
 		phone = $allInvoices[invoiceNumber - 1].phone;
 		email = $allInvoices[invoiceNumber - 1].email;
