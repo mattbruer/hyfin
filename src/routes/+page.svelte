@@ -9,7 +9,7 @@
 </script>
 
 <div>
-	<img class="logo mx-auto mb-20" width="40%" src="/hyfin.png" alt="logo" />
+	<img class="logo mx-auto mt-4 mb-4" width="40%" src="/hyfin.png" alt="logo" />
 	<h2 class="text-4xl text-center mb-4">INVOICES</h2>
 
 	<div class="inv-container pt-4 flex flex-col h-[380px] ml-20 mr-20 border overflow-auto">
@@ -33,14 +33,10 @@
 </div>
 
 <style>
-	.logo {
-		filter: drop-shadow(5px 5px 5px rgb(65, 65, 65));
-	}
 	.paid {
 		background-color: rgb(47, 175, 47);
 	}
 	.inv-container {
-		border-radius: 10px;
 		border-radius: 35px;
 		background: #ffffff;
 		box-shadow:

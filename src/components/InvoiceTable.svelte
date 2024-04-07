@@ -7,6 +7,10 @@
 	import { goto } from '$app/navigation';
 	let invoiceNumber = +$page.params.invoiceNumber || $allInvoices.length + 1;
 
+	let createdAt = new Date();
+	// let date = createdAt.toLocaleDateString();
+	// let time = createdAt.toLocaleTimeString();
+
 	let customer,
 		phone,
 		email,
@@ -121,7 +125,7 @@
 						{#each lines as line, i}
 							<Product {handleRemove} {i} bind:line />
 						{/each}
-						<button on:click={addLine}>Add Line</button>
+						<button class="w-[100px]" on:click={addLine}>Add Line</button>
 						<tr>
 							<td></td>
 							<td></td>
@@ -138,6 +142,7 @@
 						</tr>
 					</tbody>
 				</table>
+
 				<h2 class:invisible={!paid} class="text-red-500 text-6xl text-right">PAID</h2>
 			</div>
 		</div>
@@ -155,9 +160,6 @@
 {/if}
 
 <style>
-	.logo {
-		filter: drop-shadow(5px 5px 5px black);
-	}
 	.spinner {
 		border-bottom: 5px dashed red;
 

@@ -5,6 +5,9 @@
 * {
 	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
+.logo {
+	filter: drop-shadow(5px 5px 5px rgb(65, 65, 65));
+}
 button {
 	background-color: rgb(235, 118, 19);
 	border-radius: 5px;
