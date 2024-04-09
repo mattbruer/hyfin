@@ -2,6 +2,7 @@ import { json } from '@sveltejs/kit';
 import { invoices } from '../../../db/invoices';
 
 export async function POST({ request }) {
+	//would verify Hyfin auth token here
 	const data = await request.json();
 	data.invoiceNumber = +data.invoiceNumber;
 	const dbres = await invoices.insertOne(data);

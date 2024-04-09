@@ -1,13 +1,11 @@
 <script>
 	import Product from '../components/Product.svelte';
 	import { allInvoices } from '../stores';
-	import { page, navigating } from '$app/stores';
-
-	import { blur, fly } from 'svelte/transition';
+	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	let invoiceNumber = +$page.params.invoiceNumber || $allInvoices.length + 1;
 
-	let createdAt = new Date();
+	// let createdAt = new Date();
 	// let date = createdAt.toLocaleDateString();
 	// let time = createdAt.toLocaleTimeString();
 
@@ -38,7 +36,7 @@
 
 	async function handleSave() {
 		loading = true;
-
+		//for first save
 		if ($allInvoices.length < invoiceNumber) {
 			try {
 				let response = await fetch(`/invoice/${invoiceNumber}`, {
@@ -46,6 +44,8 @@
 					body: JSON.stringify({ customer, phone, email, paid: !!paid, lines, invoiceNumber }),
 					headers: {
 						'Content-Type': 'application/json'
+						//this is where the hyfin auth token would go
+						//x-access-token:API_TOKEN_VALUE
 					}
 				});
 				response = await response.json();
@@ -67,12 +67,15 @@
 				alert('Something went wrong');
 			}
 		} else {
+			//every save after initial save
 			try {
 				let response = await fetch(`/invoice/${invoiceNumber}`, {
 					method: 'PUT',
 					body: JSON.stringify({ customer, phone, email, paid: !!paid, lines, invoiceNumber }),
 					headers: {
 						'Content-Type': 'application/json'
+						//this is where the hyfin auth token would go
+						//x-access-token:API_TOKEN_VALUE
 					}
 				});
 				response = await response.json();
@@ -86,12 +89,15 @@
 				};
 
 				window.location.href = '/';
-			} catch (error) {}
+			} catch (error) {
+				console.log('error', error);
+				alert('Something went wrong.');
+			}
 		}
 	}
 
 	function handleRemove(i) {
-		lines = lines.filter((_, ind) => ind !== i);
+		lines = lines.filter((_, index) => index !== i);
 	}
 </script>
 
@@ -125,7 +131,7 @@
 						{#each lines as line, i}
 							<Product {handleRemove} {i} bind:line />
 						{/each}
-						<button class="w-[100px]" on:click={addLine}>Add Line</button>
+						<button class="w-[100px]" on:click={addLine}>ADD LINE</button>
 						<tr>
 							<td></td>
 							<td></td>
@@ -147,14 +153,14 @@
 			</div>
 		</div>
 		<div class="btn-group mb-10">
-			<a href="/"><button>All invoices</button></a>
+			<a href="/"><button>ALL INVOICES</button></a>
 			<button
 				on:click={() => {
 					paid = !paid;
 				}}>{paid ? 'NOT PAID' : 'PAID'}</button
 			>
 
-			<button on:click={handleSave}>{loading ? '...' : 'SAVE'}</button>
+			<button disabled={loading} on:click={handleSave}>{loading ? '...' : 'SAVE'}</button>
 		</div>
 	</div>
 {/if}
@@ -162,7 +168,6 @@
 <style>
 	.spinner {
 		border-bottom: 5px dashed red;
-
 		border-radius: 50%;
 		height: 100px;
 		width: 100px;
@@ -176,7 +181,6 @@
 		justify-content: space-between;
 		margin-bottom: 40px;
 	}
-
 	table {
 		width: 100%;
 		border-collapse: collapse;
